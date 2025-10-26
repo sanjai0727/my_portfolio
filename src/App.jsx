@@ -6,7 +6,6 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [roleIndex, setRoleIndex] = useState(0);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [activeSkillTab, setActiveSkillTab] = useState('all');
     
   const roles = ["AI & ML Enthusiast", "Problem Solver", "Software Engineer"];
 
@@ -19,7 +18,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'skills', 'education', 'contact'];
+      const sections = ['home', 'about', 'projects', 'education', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -63,57 +62,6 @@ const Portfolio = () => {
       link: "#"
     }
   ];
-
-  const skillsData = {
-    'Programming & Development': [
-      { name: 'Python', level: 90 },
-      { name: 'JavaScript', level: 70 },
-      { name: 'HTML/CSS', level: 75 },
-      { name: 'React (Basic)', level: 65 }
-    ],
-    'Databases & Data Engineering': [
-      { name: 'MySQL', level: 80 },
-      { name: 'Data Visualization', level: 78 },
-      { name: 'Business Intelligence', level: 70 }
-    ],
-    'AI & Machine Learning': [
-      { name: 'Machine Learning (Scikit-learn)', level: 80 },
-      { name: 'Deep Learning (TensorFlow / Keras)', level: 75 },
-      { name: 'Natural Language Processing (BERT)', level: 72 },
-      { name: 'Computer Vision / Video Processing (OpenCV, MediaPipe)', level: 70 }
-    ],
-    'Systems & Tools': [
-      { name: 'Linux', level: 65 },
-      { name: 'Shell Scripting', level: 60 },
-      { name: 'Automation (n8n, Python)', level: 78 },
-      { name: 'Git & Version Control', level: 52 }
-    ]
-  };
-
-  const skillTabs = [
-    { id: 'all', label: 'All Skills' },
-    { id: 'programming', label: 'Programming & Development' },
-    { id: 'databases', label: 'Databases & Data Engineering' },
-    { id: 'ai', label: 'AI & Machine Learning' },
-    { id: 'systems', label: 'Systems & Tools' }
-  ];
-
-  const getFilteredSkills = () => {
-    if (activeSkillTab === 'all') {
-      return Object.entries(skillsData);
-    }
-    const categoryMap = {
-      'programming': 'Programming & Development',
-      'databases': 'Databases & Data Engineering',
-      'ai': 'AI & Machine Learning',
-      'systems': 'Systems & Tools'
-    };
-    const category = categoryMap[activeSkillTab];
-    if (category && skillsData[category]) {
-      return [[category, skillsData[category]]];
-    }
-    return [];
-  };
 
   const education = [
     {
@@ -225,7 +173,7 @@ const Portfolio = () => {
             </motion.div>
             
             <div className="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2">
-              {['home', 'about', 'projects', 'skills', 'education', 'contact'].map((item) => (
+              {['home', 'about', 'projects', 'education', 'contact'].map((item) => (
                 <a
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -444,83 +392,6 @@ const Portfolio = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-      </section>
-      
-      <section id="skills" className="min-h-screen py-20 px-4">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl md:text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-400"
-          >
-            Skills & Technologies
-          </motion.h2>
-          
-          <motion.p
-            variants={itemVariants}
-            className="text-center text-gray-400 mb-12"
-          >
-            Skills developed through hands-on projects and continuous learning.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3 mb-12">
-            {skillTabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveSkillTab(tab.id)}
-                className={`px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                  activeSkillTab === tab.id
-                    ? 'bg-orange-500 text-white'
-                    : 'bg-gray-800/60 text-gray-300 hover:bg-gray-700/60'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <AnimatePresence mode="wait">
-              {getFilteredSkills().map(([category, skills], categoryIndex) => (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="p-6 rounded-xl bg-gray-800/40 backdrop-blur-lg border border-gray-700/50"
-                >
-                  <h3 className="text-lg font-bold mb-6 text-white">
-                    {category}
-                  </h3>
-                  <div className="space-y-5">
-                    {skills.map((skill, index) => (
-                      <div key={index}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm text-gray-300">{skill.name}</span>
-                          <span className="text-sm text-gray-400">{skill.level}%</span>
-                        </div>
-                        <div className="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${skill.level}%` }}
-                            transition={{ duration: 1, delay: index * 0.1 }}
-                            className="h-full bg-gradient-to-r from-purple-500 to-purple-600 rounded-full"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
           </div>
         </motion.div>
       </section>
