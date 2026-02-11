@@ -774,7 +774,7 @@ function Hero() {
       </motion.p>
       <motion.div variants={fadeUp} initial="hidden" animate="visible" className="flex gap-4">
         <motion.a
-          href="/Sanjai_Resume.pdf"
+          href="/sanjai_resume.pdf"
           download
           whileHover={{ scale: 1.03 }}
           className="rounded-xl border border-white/20 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,.25)] hover:shadow-[0_0_30px_rgba(236,72,153,.5)] transition-all"

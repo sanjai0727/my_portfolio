@@ -18,6 +18,8 @@
     "react-dom": "^18.3.1",
     "react-parallax-tilt": "^1.7.312",
     "react-simple-typewriter": "^5.0.1",
+    "save": "^2.9.0",
+    "serve": "^14.2.5",
     "three": "^0.181.2"
   },
   "devDependencies": {
