@@ -1266,6 +1266,7 @@ export default function Portfolio() {
       from_email: formData.email,
       message: formData.message,
       to_name: 'Sanjai P A',
+      to_email: 'r5v55.portfolio@testmail.app',
     };
 
     try {
