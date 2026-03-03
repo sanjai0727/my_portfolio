@@ -2,6 +2,10 @@
 
 Welcome to my personal portfolio website! This project is a modern, interactive showcase of my academic journey, technical skills, and projects in the fields of Data Science, Artificial Intelligence, and Software Engineering.
 
+🔗 **Live Site**: [sanjaipa.in](https://sanjaipa.in)
+
+---
+
 ## 🌌 Project Overview
 
 This portfolio is designed to be more than just a resume; it's an immersive digital experience. Built with **React** and **Vite**, it features a futuristic "Space/Nebula" theme that reflects my passion for exploring the unknown frontiers of technology. The site leverages advanced animations and glassmorphism to create a premium, depth-rich user interface.
@@ -55,8 +59,11 @@ This project is built using a modern frontend stack:
     *   [React Simple Typewriter](https://www.npmjs.com/package/react-simple-typewriter) - For text typing effects.
 *   **Icons**: [Lucide React](https://lucide.dev/)
 *   **Email Service**: [EmailJS](https://www.emailjs.com/)
+*   **3D Graphics**: [Three.js](https://threejs.org/)
 
-## 💻 Setup & Installation
+---
+
+## 💻 Local Development
 
 To run this project locally on your machine:
 
@@ -79,6 +86,83 @@ To run this project locally on your machine:
 
 4.  **Open in Browser**:
     Visit `http://localhost:5173` (or the port shown in your terminal).
+
+---
+
+## 🖥️ Production Deployment (PM2 + Nginx)
+
+This project is deployed as a static site served via **PM2** and **serve**, sitting behind an **Nginx** reverse proxy with SSL.
+
+### Prerequisites (on server)
+
+```bash
+node -v        # Node.js
+npm install -g pm2
+npm install -g serve
+```
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/sanjai0727/sanjai-portfolio.git
+cd sanjai-portfolio
+npm install --omit=dev
+```
+
+### 2. Build
+
+```bash
+npm run build
+```
+
+### 3. Start with PM2
+
+```bash
+pm2 start ecosystem.config.cjs
+pm2 save
+pm2 startup   # Run the command it outputs to enable auto-start on reboot
+```
+
+### 4. Nginx Reverse Proxy
+
+Create `/etc/nginx/sites-available/portfolio`:
+
+```nginx
+server {
+    listen 80;
+    server_name sanjaipa.in www.sanjaipa.in;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+### 5. SSL with Let's Encrypt (Certbot)
+
+```bash
+sudo certbot --nginx -d sanjaipa.in -d www.sanjaipa.in
+```
+
+### 🔄 Redeploying Updates
+
+```bash
+git pull
+npm run build
+pm2 restart sanjai-portfolio
+```
+
+---
 
 ## 📄 License
 
