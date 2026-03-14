@@ -41,7 +41,7 @@ The design philosophy centers around a dark, atmospheric aesthetic:
         *   **Pocket AI**: A privacy-first, offline AI assistant powered by Phi-3 Mini.
 
 5.  **Education**:
-    *   A timeline of my academic path, from High School to my current B.Tech in CSE (Data Science & AI) at Dr. M.G.R. Educational and Research Institute.
+    *   A timeline of my academic path, from High School to my current B.Tech in CSE at Dr. M.G.R. Educational and Research Institute.
 
 6.  **Contact**:
     *   A fully functional contact form integrated with **EmailJS** for direct messaging.
